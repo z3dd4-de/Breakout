@@ -7,15 +7,15 @@ const SPEED = 800.0
 @export var height: int
 
 
-func _draw():
+func _draw() -> void:
 	draw_rect(Rect2(Vector2(-width/2, -height/2), Vector2(width, height)), Globals.get_color())
 
 
-func _ready():
+func _ready() -> void:
 	randomize()
 
 
-func _physics_process(delta):
+func _physics_process(_delta) -> void:
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED

@@ -263,12 +263,12 @@ flip_h = true
 
 [node name="Player" parent="." instance=ExtResource("3_5abtq")]
 visible = false
-position = Vector2(806, 1027)
+position = Vector2(1507.7, 1027)
 
 [node name="Ball" parent="." groups=["ball"] instance=ExtResource("3_7chhk")]
 visible = false
-position = Vector2(1205.8, 661.68)
-velocity = Vector2(24.6791, -565.142)
+position = Vector2(1095.7, 481.485)
+velocity = Vector2(-348.712, 445.414)
 
 [connection signal="body_entered" from="Walls/Bottom/BottomArea" to="." method="_on_bottom_area_body_entered"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
