@@ -16,3 +16,5 @@ I will eventually put a tutorial on my "Ants Godot"-Youtube channel.
 V0.1 - 18-Jan-2024: Speed programming of level 1 with brick, ball, player and game (Proof of concept)
 
 V1.0 - 19-Jan-2024: Added level 2 and 3. New screens for level completed, game ended, restart game. Level switching. New levels can be easily integrated into the game.gd file without changing the other files. Fixed some small bugs. Mouse cursor is now hidden when the game is running.
+
+V1.1 - 19-Jan-2024: Music and audio menu added. Levels 4-6 added. Levels have a name now that is shown at the beginning of each level for a few seconds. Created an Ants Godot video showing the current gameplay (https://www.youtube.com/watch?v=9MSujApKUog). 
