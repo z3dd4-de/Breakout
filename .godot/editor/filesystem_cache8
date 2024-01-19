@@ -1,0 +1,15 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1705599614
+icon.svg::CompressedTexture2D::6819637955865048712::1705592510::1705592521::1::::<><>::
+::res://scenes/::1705599573
+ball.tscn::PackedScene::5165340238562204269::1705598501::0::1::::<><>::res://scripts/ball.gd
+brick.tscn::PackedScene::3550320479217911679::1705599573::0::1::::<><>::res://scripts/brick.gd
+game.tscn::PackedScene::2173846440317516807::1705599573::0::1::::<><>::res://scripts/game.gd<>uid://d0nqy5lcqs2dm::::res://scenes/player.tscn<>uid://cfuentk141syv::::res://scenes/ball.tscn
+player.tscn::PackedScene::8941835976577214702::1705599573::0::1::::<><>::res://scripts/player.gd
+slider.tscn::PackedScene::178061009568100923::1705599573::0::1::::<><>::res://scripts/slider.gd
+::res://scripts/::1705599382
+ball.gd::GDScript::-1::1705598274::0::1::::<>RigidBody2D<>::
+brick.gd::GDScript::-1::1705597025::0::1::::<>RigidBody2D<>::
+game.gd::GDScript::-1::1705597798::0::1::::<>Node2D<>::
+player.gd::GDScript::-1::1705599382::0::1::::<>CharacterBody2D<>::
+slider.gd::GDScript::-1::1705597918::0::1::::<>RigidBody2D<>::

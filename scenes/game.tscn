@@ -1,0 +1,278 @@
+[gd_scene load_steps=9 format=3 uid="uid://58a6y4hc2grv"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_q6gq3"]
+[ext_resource type="PackedScene" uid="uid://d0nqy5lcqs2dm" path="res://scenes/player.tscn" id="3_5abtq"]
+[ext_resource type="PackedScene" uid="uid://cfuentk141syv" path="res://scenes/ball.tscn" id="3_7chhk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svqcc"]
+size = Vector2(1941, 11.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0i05"]
+size = Vector2(1935, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5per"]
+size = Vector2(25.625, 1168.13)
+
+[sub_resource type="Gradient" id="Gradient_untal"]
+colors = PackedColorArray(0.529412, 0.682353, 1, 1, 0, 0, 0.952941, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7vb7"]
+gradient = SubResource("Gradient_untal")
+
+[node name="Game" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_q6gq3")
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+position = Vector2(955.5, -22)
+shape = SubResource("RectangleShape2D_svqcc")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+position = Vector2(962, 1136.75)
+shape = SubResource("RectangleShape2D_svqcc")
+
+[node name="BottomArea" type="Area2D" parent="Walls/Bottom"]
+position = Vector2(-3, 1102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom/BottomArea"]
+position = Vector2(957.5, 29.5)
+shape = SubResource("RectangleShape2D_q0i05")
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+position = Vector2(-2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+position = Vector2(-13.1875, 563.063)
+shape = SubResource("RectangleShape2D_v5per")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+position = Vector2(-2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+position = Vector2(1936.63, 555.125)
+shape = SubResource("RectangleShape2D_v5per")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ButtonPanel" type="Panel" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -279.5
+offset_top = -161.5
+offset_right = 279.5
+offset_bottom = 161.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ButtonPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -79.0
+offset_right = 140.5
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Start Game"
+
+[node name="ExitButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[node name="TitlePanel" type="Panel" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.5
+offset_right = 237.5
+offset_bottom = 125.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="UI/TitlePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -178.5
+offset_right = 178.5
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.933333, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Breakout"
+
+[node name="PointsPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -312.0
+offset_bottom = 91.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+
+[node name="PointsLabel" type="Label" parent="UI/PointsPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 300.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 2
+
+[node name="GameOverPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.5
+offset_top = -200.5
+offset_right = 260.5
+offset_bottom = 200.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverPanel"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -71.0
+offset_right = 163.5
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Points"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Restart"
+
+[node name="ExitButton2" type="Button" parent="UI/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[node name="LevelPanel" type="Panel" parent="UI"]
+visible = false
+offset_right = 212.0
+offset_bottom = 91.0
+
+[node name="LevelLabel" type="Label" parent="UI/LevelPanel"]
+layout_mode = 0
+offset_top = 11.0
+offset_right = 208.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 50
+text = "Level 1"
+horizontal_alignment = 1
+
+[node name="LevelCompletePanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.5
+offset_top = -159.0
+offset_right = 276.5
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LevelCompletePanel"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = -90.0
+offset_right = 163.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelCompletedLabel" type="Label" parent="UI/LevelCompletePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Congratulation!
+Level completed!"
+horizontal_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="UI/LevelCompletePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Next Level"
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = 1931.0
+offset_top = -17.0
+offset_right = 3052.0
+offset_bottom = 1917.0
+rotation = 1.5708
+texture = SubResource("GradientTexture2D_p7vb7")
+flip_h = true
+
+[node name="Player" parent="." instance=ExtResource("3_5abtq")]
+visible = false
+position = Vector2(806, 1027)
+
+[node name="Ball" parent="." groups=["ball"] instance=ExtResource("3_7chhk")]
+visible = false
+position = Vector2(1205.8, 661.68)
+velocity = Vector2(24.6791, -565.142)
+
+[connection signal="body_entered" from="Walls/Bottom/BottomArea" to="." method="_on_bottom_area_body_entered"]
+[connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/ExitButton2" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="UI/LevelCompletePanel/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]

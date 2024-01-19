@@ -1,0 +1,13 @@
+Button
+Label
+VBoxContainer
+Panel
+Timer
+CollisionShape2D
+Area2D
+CharacterBody2D
+TextureRect
+RigidBody2D
+CanvasLayer
+StaticBody2D
+Node
