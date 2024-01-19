@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://58a6y4hc2grv"]
+[gd_scene load_steps=10 format=3 uid="uid://58a6y4hc2grv"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_q6gq3"]
 [ext_resource type="PackedScene" uid="uid://d0nqy5lcqs2dm" path="res://scenes/player.tscn" id="3_5abtq"]
 [ext_resource type="PackedScene" uid="uid://cfuentk141syv" path="res://scenes/ball.tscn" id="3_7chhk"]
+[ext_resource type="AudioStream" uid="uid://d0to6ufgdqtca" path="res://audio/007_Synthwave_421k.mp3" id="4_t61k6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svqcc"]
 size = Vector2(1941, 11.5)
@@ -67,9 +68,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -279.5
-offset_top = -161.5
+offset_top = -224.0
 offset_right = 279.5
-offset_bottom = 161.5
+offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -92,6 +93,18 @@ process_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Start Game"
+
+[node name="AudioButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Audio Options"
+
+[node name="VideoButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Video Options"
 
 [node name="ExitButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
 process_mode = 2
@@ -252,6 +265,96 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Next Level"
 
+[node name="AudioPanel" type="Panel" parent="UI"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -367.5
+offset_top = -137.5
+offset_right = 367.5
+offset_bottom = 137.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/AudioPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = -111.0
+offset_right = 266.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioOptionsLabel" type="Label" parent="UI/AudioPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Audio Options"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="UI/AudioPanel/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="VolumeLabel" type="Label" parent="UI/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Music Volume"
+
+[node name="HSlider" type="HSlider" parent="UI/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="ToggleLabel" type="Label" parent="UI/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Music"
+
+[node name="ToggleCheckButton" type="CheckButton" parent="UI/AudioPanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "muted"
+
+[node name="AudioBackButton" type="Button" parent="UI/AudioPanel/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="LevelNamePanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -321.0
+offset_right = 322.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="LevelNameLabel" type="Label" parent="UI/LevelNamePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.396078, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Level Name"
+horizontal_alignment = 1
+
 [node name="Background" type="TextureRect" parent="."]
 offset_left = 1931.0
 offset_top = -17.0
@@ -263,16 +366,30 @@ flip_h = true
 
 [node name="Player" parent="." instance=ExtResource("3_5abtq")]
 visible = false
-position = Vector2(1507.7, 1027)
+position = Vector2(1771.74, 1027)
 
 [node name="Ball" parent="." groups=["ball"] instance=ExtResource("3_7chhk")]
 visible = false
-position = Vector2(1095.7, 481.485)
-velocity = Vector2(-348.712, 445.414)
+position = Vector2(1518.34, 595.637)
+velocity = Vector2(20.5051, -565.305)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("4_t61k6")
+autoplay = true
+
+[node name="ShowMessageTimer" type="Timer" parent="."]
+wait_time = 8.0
 
 [connection signal="body_entered" from="Walls/Bottom/BottomArea" to="." method="_on_bottom_area_body_entered"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/ExitButton2" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="UI/LevelCompletePanel/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="value_changed" from="UI/AudioPanel/VBoxContainer/GridContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="UI/AudioPanel/VBoxContainer/GridContainer/ToggleCheckButton" to="." method="_on_toggle_check_button_toggled"]
+[connection signal="pressed" from="UI/AudioPanel/VBoxContainer/AudioBackButton" to="." method="_on_audio_back_button_pressed"]
+[connection signal="timeout" from="ShowMessageTimer" to="." method="_on_show_message_timer_timeout"]
