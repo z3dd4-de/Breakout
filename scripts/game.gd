@@ -8,6 +8,7 @@ var game_won = false
 var level_name = ""
 @onready var ball = $Ball
 @onready var _master = AudioServer.get_bus_index("Master")
+var player_pos: Vector2
 
 
 func _ready():
@@ -16,8 +17,14 @@ func _ready():
 	randomize()
 	get_tree().paused = true
 	$Player.position.x = 1920/2
+	player_pos = $Player.position
 	#switch_level()
 
+
+func _process(_delta):
+	# Bugfix: if Player is below original position, the y-position will be reset to original position
+	if $Player.position.y != player_pos.y:
+		$Player.position.y = player_pos.y
 
 func show_level_name():
 	$UI/LevelNamePanel.visible = true
@@ -245,6 +252,10 @@ func level_8():
 
 
 func level_9():
+	pass
+
+
+func level_10():
 	pass
 
 
