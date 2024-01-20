@@ -3,7 +3,7 @@ extends Node2D
 var game_running = false
 var points = 0
 var level = 1
-var max_level = 8
+var max_level = 10
 var game_won = false
 var level_name = ""
 @onready var ball = $Ball
@@ -18,13 +18,13 @@ func _ready():
 	get_tree().paused = true
 	$Player.position.x = 1920/2
 	player_pos = $Player.position
-	#switch_level()
 
 
 func _process(_delta):
 	# Bugfix: if Player is below original position, the y-position will be reset to original position
 	if $Player.position.y != player_pos.y:
 		$Player.position.y = player_pos.y
+
 
 func show_level_name():
 	$UI/LevelNamePanel.visible = true
@@ -50,6 +50,10 @@ func switch_level():
 			level_7()
 		8:
 			level_8()
+		9:
+			level_9()
+		10:
+			level_10()
 	$UI/LevelPanel/LevelLabel.text = "Level " + str(level)
 	show_level_name()
 
@@ -252,11 +256,66 @@ func level_8():
 
 
 func level_9():
-	pass
+	level_name = "You can't destroy them all"
+	Globals.bricks = 0
+	var lines = 10
+	var x = 150
+	var y = 50
+	
+	for i in lines:
+		x = 150
+		var bricks_per_line = 2
+		var coin = randi_range(0, 1)
+		if coin == 0:
+			var ub = preload("res://scenes/indestructible_brick.tscn").instantiate()
+			ub.scale = Vector2(3, 3)
+			ub.position = Vector2(randi_range(x, 1500), y)
+			add_child(ub)
+			x += 150
+		else:
+			var br = preload("res://scenes/brick.tscn").instantiate()
+			br.scale = Vector2(3, 3)
+			br.position = Vector2(randi_range(x, 1500), y)
+			add_child(br)
+			Globals.bricks += 1
+			
+		y += 50
+	ball.velocity = Vector2(600, 600)
 
 
 func level_10():
-	pass
+	level_name = "The Rectangle"
+	Globals.bricks = 0
+	var lines = 11
+	var x = 150
+	var y = 50
+	for i in lines:
+		x = 150
+		var bricks_per_line = 2
+		if i == 0 or i == 10:
+			bricks_per_line = 11
+		else:
+			bricks_per_line = 2
+		if i == 5:
+			var x_k = 400
+			for k in 7:
+				var ub = preload("res://scenes/indestructible_brick.tscn").instantiate()
+				ub.scale = Vector2(3, 3)
+				ub.position = Vector2(x_k, y)
+				add_child(ub)
+				x_k += 150
+		for j in bricks_per_line:
+			var br = preload("res://scenes/brick.tscn").instantiate()
+			br.scale = Vector2(3, 3)
+			br.position = Vector2(x, y)
+			if i == 0 or i == 10:
+				x += 150
+			else:
+				x += 1500
+			add_child(br)
+			Globals.bricks += 1
+		y += 50
+	ball.velocity = Vector2(500, 500)
 
 
 func update_points(new_points: int) -> void:

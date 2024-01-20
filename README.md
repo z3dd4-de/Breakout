@@ -21,3 +21,5 @@ V1.0 - 19-Jan-2024: Added level 2 and 3. New screens for level completed, game e
 V1.1 - 19-Jan-2024: Music and audio menu added. Levels 4-8 added. Levels have a name now that is shown at the beginning of each level for a few seconds. Created an Ants Godot video showing the current gameplay (https://www.youtube.com/watch?v=9MSujApKUog).
 
 V1.2 - 20-Jan-2024: Bugfix 1: sometimes the player's slider can be pushed to the bottom and might disappear offscreen. The bugfix should put the slider back to the original y-coordinate.
+
+V1.3 - 21-Jan-2024: New levels 9 and 10, including the indestructible brick. Game gets harder and harder.
