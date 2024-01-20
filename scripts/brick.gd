@@ -27,5 +27,4 @@ func _on_area_2d_body_entered(body) -> void:
 func _on_timer_timeout() -> void:
 	self.queue_free()
 	Globals.bricks -= 1
-	print("Bricks left: ", Globals.bricks)
 	Globals.check_level()

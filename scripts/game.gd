@@ -3,7 +3,7 @@ extends Node2D
 var game_running = false
 var points = 0
 var level = 1
-var max_level = 6
+var max_level = 8
 var game_won = false
 var level_name = ""
 @onready var ball = $Ball
@@ -15,6 +15,7 @@ func _ready():
 	Globals.LevelCompleted.connect(check_level_complete)
 	randomize()
 	get_tree().paused = true
+	$Player.position.x = 1920/2
 	#switch_level()
 
 
@@ -38,6 +39,10 @@ func switch_level():
 			level_5()
 		6: 
 			level_6()
+		7:
+			level_7()
+		8:
+			level_8()
 	$UI/LevelPanel/LevelLabel.text = "Level " + str(level)
 	show_level_name()
 
@@ -197,6 +202,52 @@ func level_6():			# 3 little bricks
 	ball.velocity = Vector2(700, 700)
 
 
+func level_7():
+	level_name = "Stacking bricks"
+	Globals.bricks = 0
+	var brick_count = 48
+	var lines = 8
+	var bricks_per_line = brick_count/lines
+	var x = 50
+	var y = 50
+	for i in lines:
+		x = 50
+		for j in bricks_per_line:
+			var br = preload("res://scenes/brick.tscn").instantiate()
+			br.scale = Vector2(4, 4)
+			br.position = Vector2(x, y)
+			add_child(br)
+			Globals.bricks += 1
+			x += 300
+		y += 30
+	ball.velocity = Vector2(500, 500)
+
+
+func level_8():
+	level_name = "The Wall"
+	Globals.bricks = 0
+	var brick_count = 121
+	var lines = 10
+	var bricks_per_line = brick_count/lines
+	var x = 50
+	var y = 50
+	for i in lines:
+		x = 50
+		for j in bricks_per_line:
+			var br = preload("res://scenes/brick.tscn").instantiate()
+			br.scale = Vector2(3, 3)
+			br.position = Vector2(x, y)
+			add_child(br)
+			Globals.bricks += 1
+			x += 150
+		y += 30
+	ball.velocity = Vector2(600, 500)
+
+
+func level_9():
+	pass
+
+
 func update_points(new_points: int) -> void:
 	points += new_points
 	$UI/PointsPanel/PointsLabel.text = str(points)
@@ -264,7 +315,8 @@ func _on_audio_button_pressed():
 
 
 func _on_video_button_pressed():
-	pass
+	$UI/ButtonPanel.visible = false
+	$UI/VideoPanel.visible = true
 
 
 func _on_h_slider_value_changed(value):
@@ -282,3 +334,29 @@ func _on_audio_back_button_pressed():
 
 func _on_show_message_timer_timeout():
 	$UI/LevelNamePanel.visible = false
+
+
+func _on_video_back_button_pressed():
+	$UI/ButtonPanel.visible = true
+	$UI/VideoPanel.visible = false
+
+
+func _on_vsync_check_button_toggled(toggled_on):
+	if toggled_on:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+
+func _on_borderless_check_button_toggled(toggled_on):
+	if toggled_on:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	else:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+
+
+func _on_fullscreen_check_button_toggled(toggled_on):
+	if toggled_on:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
