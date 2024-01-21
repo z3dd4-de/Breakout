@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="Breakout"
+config/version="1.3.0"
 run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.0745098, 0, 0.65098, 1)
-config/icon="res://Breakout.ico"
+config/icon="res://Breakout.png"
 
 [autoload]
 
