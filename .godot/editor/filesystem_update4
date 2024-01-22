@@ -1,9 +1,7 @@
 res://scenes/game.tscn
-res://scripts/test_scene.gd
 res://scenes/brick.tscn
 res://scenes/player.tscn
 res://scenes/ball.tscn
 res://scenes/test_scene.tscn
-res://scripts/indestructible_brick.gd
 res://scenes/indestructible_brick.tscn
 res://scripts/game.gd

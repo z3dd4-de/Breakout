@@ -1,5 +1,10 @@
 extends Node2D
 
+# Magic numbers
+const MAX_WIDTH = 1920
+const MAX_HEIGHT = 1080
+const HIGHSCORE_ENTRIES = 10
+
 var game_running = false
 var points = 0
 var level = 1
@@ -10,14 +15,110 @@ var level_name = ""
 @onready var _master = AudioServer.get_bus_index("Master")
 var player_pos: Vector2
 
+var highscore: Highscores
+
+# Labels
+var name_labels = []
+var level_labels = []
+var point_labels = []
+@onready var name_1_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name1Label
+@onready var lvl_1_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl1Label
+@onready var points_1_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points1Label
+@onready var name_2_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name2Label
+@onready var lvl_2_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl2Label
+@onready var points_2_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points2Label
+@onready var name_3_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name3Label
+@onready var lvl_3_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl3Label
+@onready var points_3_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points3Label
+@onready var name_4_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name4Label
+@onready var lvl_4_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl4Label
+@onready var points_4_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points4Label
+@onready var name_5_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name5Label
+@onready var lvl_5_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl5Label
+@onready var points_5_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points5Label
+@onready var name_6_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name6Label
+@onready var lvl_6_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl6Label
+@onready var points_6_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points6Label
+@onready var name_7_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name7Label
+@onready var lvl_7_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl7Label
+@onready var points_7_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points7Label
+@onready var name_8_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name8Label
+@onready var lvl_8_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl8Label
+@onready var points_8_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points8Label
+@onready var name_9_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name9Label
+@onready var lvl_9_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl9Label
+@onready var points_9_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points9Label
+@onready var name_10_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Name10Label
+@onready var lvl_10_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Lvl10Label
+@onready var points_10_label = $UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer/Points10Label
+
+# SaveLoad variables
+var m_Password = "R4nd0m_p455w0Rd"
+var m_GameStateFile = "user://breakout.dat"       # File path to the saved game state
+
 
 func _ready():
 	Globals.Destroyed.connect(update_points)
 	Globals.LevelCompleted.connect(check_level_complete)
 	randomize()
+	SaveLoadHighscores.Initialize(m_GameStateFile, m_Password)
+	open_save_game()
 	get_tree().paused = true
-	$Player.position.x = 1920/2
+	$Player.position.x = MAX_WIDTH/2
 	player_pos = $Player.position
+	name_labels = [name_1_label, name_2_label, name_3_label, name_4_label, name_5_label, name_6_label, name_7_label, name_8_label, name_9_label, name_10_label]
+	level_labels = [lvl_1_label, lvl_2_label, lvl_3_label, lvl_4_label, lvl_5_label, lvl_6_label, lvl_7_label, lvl_8_label, lvl_9_label, lvl_10_label]
+	point_labels = [points_1_label, points_2_label, points_3_label, points_4_label, points_5_label, points_6_label, points_7_label, points_8_label, points_9_label, points_10_label]
+	$UI/AddHighscorePanel/VBoxContainer/PlayernameLineEdit.text = highscore.last_player
+	build_highscore_list()
+
+
+func build_highscore_list():
+	var i = 0
+	for entry in highscore.list:
+		if !entry.is_empty():
+			var dict = entry
+			for key in dict:
+				var value = dict[key]
+				var level = key.split(";")
+				print(level)
+				name_labels[i].text = level[0]
+				level_labels[i].text = level[1]
+				point_labels[i].text = str(value)
+				name_labels[i].visible = true
+				level_labels[i].visible = true
+				point_labels[i].visible = true
+		else:
+			name_labels[i].visible = false
+			level_labels[i].visible = false
+			point_labels[i].visible = false
+		i += 1
+
+
+func open_save_game():
+	var status = SaveLoadHighscores.OpenFile(FileAccess.READ)		# Open the file with READ access
+	if status != OK:
+		highscore = Highscores.new(HIGHSCORE_ENTRIES)
+		highscore.last_player = "Playername"
+		print("Unable to open the file %s. Received error: %d" % [m_GameStateFile, status])
+	else:
+		highscore = Highscores.new(HIGHSCORE_ENTRIES)
+		SaveLoadHighscores.Deserialize(highscore)
+		SaveLoadHighscores.CloseFile()
+
+
+func write_save_game():
+	var status = SaveLoadHighscores.OpenFile(FileAccess.WRITE)
+	if status != OK:
+		print("Unable to open the file %s. Received error: %d" % [m_GameStateFile, status])
+		return
+	SaveLoadHighscores.Serialize(highscore)
+	SaveLoadHighscores.CloseFile()
+
+
+func _exit_tree():
+	write_save_game()
+	SaveLoadHighscores.Clear()
 
 
 func _process(_delta):
@@ -66,9 +167,11 @@ func check_level_complete():
 	level += 1
 	if level <= max_level:
 		$UI/LevelCompletePanel/VBoxContainer/NextLevelButton.disabled = false
+		$UI/LevelCompletePanel/VBoxContainer/AddHighscoreButton2.visible = false
 	else:
 		$UI/LevelCompletePanel/VBoxContainer/LevelCompletedLabel.text = "Game won!\nDo you want to start again?"
 		$UI/LevelCompletePanel/VBoxContainer/NextLevelButton.text = "New Game"
+		$UI/LevelCompletePanel/VBoxContainer/AddHighscoreButton2.visible = true
 		game_won = true
 
 
@@ -86,7 +189,7 @@ func level_1():		# Just a few bricks
 			var br = preload("res://scenes/brick.tscn").instantiate()
 			br.scale = Vector2(4, 4)
 			br.position = Vector2(x, y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 			x += 300
 		y += 80
@@ -101,7 +204,7 @@ func level_2():		# One Brick only
 	var y = randi_range(50, 200)
 	br.position = Vector2(x, y)
 	br.points = 200
-	add_child(br)
+	get_tree().get_current_scene().add_child(br)
 
 
 func level_3():		# A little bit faster
@@ -119,14 +222,14 @@ func level_3():		# A little bit faster
 		if x <= 1800 and y <= 600:
 			Globals.bricks += 1
 			br.position = Vector2(x, y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 	ball.velocity = Vector2(500, 500)
 
 
 func level_4():		# 4 Circles
 	level_name = "4 Circles"
 	Globals.bricks = 0
-	var x = 1920/2
+	var x = MAX_WIDTH/2
 	var y = 350
 	var radius = 280
 	var brick_count = 12
@@ -136,7 +239,7 @@ func level_4():		# 4 Circles
 		br.scale = Vector2(2, 2)
 		br.points = 75
 		br.position = Vector2(x + radius * cos(deg_to_rad(angle_in_degrees)), y + radius * sin(deg_to_rad(angle_in_degrees)))
-		add_child(br)
+		get_tree().get_current_scene().add_child(br)
 		angle_in_degrees += 30
 		Globals.bricks += 1
 		
@@ -147,7 +250,7 @@ func level_4():		# 4 Circles
 		br.scale = Vector2(2, 2)
 		br.points = 75
 		br.position = Vector2(x + radius * cos(deg_to_rad(angle_in_degrees)), y + radius * sin(deg_to_rad(angle_in_degrees)))
-		add_child(br)
+		get_tree().get_current_scene().add_child(br)
 		angle_in_degrees += 30
 		Globals.bricks += 1
 	
@@ -158,22 +261,22 @@ func level_4():		# 4 Circles
 		br.scale = Vector2(2, 2)
 		br.points = 75
 		br.position = Vector2(x + radius * cos(deg_to_rad(angle_in_degrees)), y + radius * sin(deg_to_rad(angle_in_degrees)))
-		add_child(br)
+		get_tree().get_current_scene().add_child(br)
 		angle_in_degrees += 30
 		Globals.bricks += 1
 	
-	x = 1920 - 400
+	x = MAX_WIDTH - 400
 	y = 300
 	for i in brick_count:
 		var br = preload("res://scenes/brick.tscn").instantiate()
 		br.scale = Vector2(2, 2)
 		br.points = 75
 		br.position = Vector2(x + radius * cos(deg_to_rad(angle_in_degrees)), y + radius * sin(deg_to_rad(angle_in_degrees)))
-		add_child(br)
+		get_tree().get_current_scene().add_child(br)
 		angle_in_degrees += 30
 		Globals.bricks += 1
-	ball.position = Vector2(1920/2, 900)
-	$Player.position.x = 1920/2
+	ball.position = Vector2(MAX_WIDTH/2, 900)
+	$Player.position.x = MAX_WIDTH/2
 
 
 func level_5(): 		# A lot more bricks
@@ -190,7 +293,7 @@ func level_5(): 		# A lot more bricks
 			var br = preload("res://scenes/brick.tscn").instantiate()
 			br.scale = Vector2(1, 1)
 			br.position = Vector2(x, y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 			x += 200
 		y += 30
@@ -208,7 +311,7 @@ func level_6():			# 3 little bricks
 		var x = randi_range(200, 1600)
 		var y = randi_range(50, 400)
 		br.position = Vector2(x, y)
-		add_child(br)
+		get_tree().get_current_scene().add_child(br)
 		Globals.bricks += 1
 	ball.velocity = Vector2(700, 700)
 
@@ -227,7 +330,7 @@ func level_7():
 			var br = preload("res://scenes/brick.tscn").instantiate()
 			br.scale = Vector2(4, 4)
 			br.position = Vector2(x, y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 			x += 300
 		y += 30
@@ -248,7 +351,7 @@ func level_8():
 			var br = preload("res://scenes/brick.tscn").instantiate()
 			br.scale = Vector2(3, 3)
 			br.position = Vector2(x, y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 			x += 150
 		y += 30
@@ -270,13 +373,13 @@ func level_9():
 			var ub = preload("res://scenes/indestructible_brick.tscn").instantiate()
 			ub.scale = Vector2(3, 3)
 			ub.position = Vector2(randi_range(x, 1500), y)
-			add_child(ub)
+			get_tree().get_current_scene().add_child(ub)
 			x += 150
 		else:
 			var br = preload("res://scenes/brick.tscn").instantiate()
 			br.scale = Vector2(3, 3)
 			br.position = Vector2(randi_range(x, 1500), y)
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 			
 		y += 50
@@ -302,7 +405,7 @@ func level_10():
 				var ub = preload("res://scenes/indestructible_brick.tscn").instantiate()
 				ub.scale = Vector2(3, 3)
 				ub.position = Vector2(x_k, y)
-				add_child(ub)
+				get_tree().get_current_scene().add_child(ub)
 				x_k += 150
 		for j in bricks_per_line:
 			var br = preload("res://scenes/brick.tscn").instantiate()
@@ -312,7 +415,7 @@ func level_10():
 				x += 150
 			else:
 				x += 1500
-			add_child(br)
+			get_tree().get_current_scene().add_child(br)
 			Globals.bricks += 1
 		y += 50
 	ball.velocity = Vector2(500, 500)
@@ -430,3 +533,39 @@ func _on_fullscreen_check_button_toggled(toggled_on):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+func _on_highscores_button_pressed():
+	$UI/HighscoresPanel.visible = true
+	$UI/ButtonPanel.visible = false
+
+
+func _on_highscores_back_button_pressed():
+	$UI/HighscoresPanel.visible = false
+	$UI/ButtonPanel.visible = true
+
+
+func _on_add_highscore_button_pressed():
+	var player = $UI/AddHighscorePanel/VBoxContainer/PlayernameLineEdit.text
+	$UI/AddHighscorePanel/VBoxContainer/LevelLabel.text = "Level " + str(level)
+	var lvl = $UI/AddHighscorePanel/VBoxContainer/LevelLabel.text
+	var point = int($UI/AddHighscorePanel/VBoxContainer/PointsLabel.text)
+	var player_lvl = player + ";" + "Level " + str(level)
+	highscore.add_entry(player_lvl, point)
+	#highscore.show_entries()
+	build_highscore_list()
+	highscore.last_player = str(player)
+	$UI/AddHighscorePanel.visible = false
+	$UI/ButtonPanel.visible = true
+	level = 1
+	points = 0
+	Globals.bricks = 0
+	get_tree().reload_current_scene()
+
+
+func _on_add_highscore2_button_pressed():
+	$UI/GameOverPanel.visible = false
+	$UI/AddHighscorePanel.visible = true
+	$UI/AddHighscorePanel/VBoxContainer/PlayernameLineEdit.text = highscore.last_player
+	$UI/AddHighscorePanel/VBoxContainer/PointsLabel.text = str(points)
+	$UI/AddHighscorePanel/VBoxContainer/LevelLabel.text = "Level " + str(level)

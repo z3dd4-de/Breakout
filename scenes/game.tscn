@@ -68,9 +68,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -279.5
-offset_top = -224.0
+offset_top = -267.5
 offset_right = 279.5
-offset_bottom = 224.0
+offset_bottom = 267.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -81,10 +81,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.5
-offset_top = -79.0
-offset_right = 140.5
-offset_bottom = 79.0
+offset_left = -176.5
+offset_top = -200.5
+offset_right = 176.5
+offset_bottom = 200.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -93,6 +93,12 @@ process_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Start Game"
+
+[node name="HighscoresButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Highscores"
 
 [node name="AudioButton" type="Button" parent="UI/ButtonPanel/VBoxContainer"]
 process_mode = 2
@@ -163,9 +169,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -260.5
-offset_top = -200.5
+offset_top = -242.0
 offset_right = 260.5
-offset_bottom = 200.5
+offset_bottom = 242.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -197,6 +203,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Points"
 horizontal_alignment = 1
+
+[node name="AddHighscoreButton" type="Button" parent="UI/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Add Highscore"
 
 [node name="RestartButton" type="Button" parent="UI/GameOverPanel/VBoxContainer"]
 layout_mode = 2
@@ -265,6 +276,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Next Level"
 
+[node name="AddHighscoreButton2" type="Button" parent="UI/LevelCompletePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Add Highscore"
+
 [node name="AudioPanel" type="Panel" parent="UI"]
 process_mode = 2
 visible = false
@@ -328,6 +344,7 @@ text = "muted"
 
 [node name="AudioBackButton" type="Button" parent="UI/AudioPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Back"
 
 [node name="LevelNamePanel" type="Panel" parent="UI"]
@@ -446,7 +463,306 @@ popup/item_3/id = 3
 
 [node name="VideoBackButton" type="Button" parent="UI/VideoPanel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Back"
+
+[node name="HighscoresPanel" type="Panel" parent="UI"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -417.5
+offset_top = -357.0
+offset_right = 417.5
+offset_bottom = 357.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HighscoresPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -333.0
+offset_right = 382.0
+offset_bottom = 333.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Highscores"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HighscoresPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Name1Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl1Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points1Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name2Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl2Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points2Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name3Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl3Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points3Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name4Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl4Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points4Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name5Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl5Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points5Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name6Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl6Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points6Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name7Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl7Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points7Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name8Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl8Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points8Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name9Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl9Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points9Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="Name10Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "Playername"
+
+[node name="Lvl10Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lvl 10"
+horizontal_alignment = 1
+
+[node name="Points10Label" type="Label" parent="UI/HighscoresPanel/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "100000"
+horizontal_alignment = 2
+
+[node name="HighscoresBackButton" type="Button" parent="UI/HighscoresPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[node name="AddHighscorePanel" type="Panel" parent="UI"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -163.0
+offset_right = 345.0
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/AddHighscorePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.5
+offset_top = -141.0
+offset_right = 316.5
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/AddHighscorePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Add Highscore"
+horizontal_alignment = 1
+
+[node name="PlayernameLineEdit" type="LineEdit" parent="UI/AddHighscorePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Playername"
+placeholder_text = "Playername"
+
+[node name="LevelLabel" type="Label" parent="UI/AddHighscorePanel/VBoxContainer"]
+process_mode = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="PointsLabel" type="Label" parent="UI/AddHighscorePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Points"
+
+[node name="AddHighscoreButton" type="Button" parent="UI/AddHighscorePanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Add Highscore"
 
 [node name="Background" type="TextureRect" parent="."]
 offset_left = 1931.0
@@ -459,12 +775,12 @@ flip_h = true
 
 [node name="Player" parent="." instance=ExtResource("3_5abtq")]
 visible = false
-position = Vector2(761.034, 1027)
+position = Vector2(1451.74, 1027)
 
 [node name="Ball" parent="." groups=["ball"] instance=ExtResource("3_7chhk")]
 visible = false
-position = Vector2(1534.76, 798.383)
-velocity = Vector2(396.537, -403.433)
+position = Vector2(1495.08, 630.528)
+velocity = Vector2(362.498, -434.23)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
@@ -476,12 +792,15 @@ wait_time = 8.0
 
 [connection signal="body_entered" from="Walls/Bottom/BottomArea" to="." method="_on_bottom_area_body_entered"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/HighscoresButton" to="." method="_on_highscores_button_pressed"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="UI/ButtonPanel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/AddHighscoreButton" to="." method="_on_add_highscore2_button_pressed"]
 [connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/GameOverPanel/VBoxContainer/ExitButton2" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="UI/LevelCompletePanel/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="UI/LevelCompletePanel/VBoxContainer/AddHighscoreButton2" to="." method="_on_add_highscore2_button_pressed"]
 [connection signal="value_changed" from="UI/AudioPanel/VBoxContainer/GridContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="toggled" from="UI/AudioPanel/VBoxContainer/GridContainer/ToggleCheckButton" to="." method="_on_toggle_check_button_toggled"]
 [connection signal="pressed" from="UI/AudioPanel/VBoxContainer/AudioBackButton" to="." method="_on_audio_back_button_pressed"]
@@ -489,4 +808,6 @@ wait_time = 8.0
 [connection signal="toggled" from="UI/VideoPanel/VBoxContainer/GridContainer/BorderlessCheckButton" to="." method="_on_borderless_check_button_toggled"]
 [connection signal="toggled" from="UI/VideoPanel/VBoxContainer/GridContainer/VsyncCheckButton" to="." method="_on_vsync_check_button_toggled"]
 [connection signal="pressed" from="UI/VideoPanel/VBoxContainer/VideoBackButton" to="." method="_on_video_back_button_pressed"]
+[connection signal="pressed" from="UI/HighscoresPanel/VBoxContainer/HighscoresBackButton" to="." method="_on_highscores_back_button_pressed"]
+[connection signal="pressed" from="UI/AddHighscorePanel/VBoxContainer/AddHighscoreButton" to="." method="_on_add_highscore_button_pressed"]
 [connection signal="timeout" from="ShowMessageTimer" to="." method="_on_show_message_timer_timeout"]

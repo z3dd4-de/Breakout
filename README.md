@@ -23,3 +23,5 @@ V1.1 - 19-Jan-2024: Music and audio menu added. Levels 4-8 added. Levels have a 
 V1.2 - 20-Jan-2024: Bugfix 1: sometimes the player's slider can be pushed to the bottom and might disappear offscreen. The bugfix should put the slider back to the original y-coordinate. Video menu implemented.
 
 V1.3 - 21-Jan-2024: New levels 9 and 10, including the indestructible brick. Game gets harder and harder. Application icon for Windows version added.
+
+v1.3.1 - 22-Jan-2024: Highscore list implemented. Small bugfix when a lost game was restartet.
